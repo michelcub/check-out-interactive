@@ -8,7 +8,7 @@ function App() {
   const handleChange = (e: any) => {
     setDataCards({
       ...dataCards,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trim()
     })
   }
 
@@ -21,11 +21,11 @@ function App() {
           <FaCcMastercard/>
           </div>
           <div className='flex justify-center'>
-            <p className='text-white mt-8 text-lg'>{dataCards?.cardNumber?.length?`${dataCards.cardNumber}`:'1234  1234  1234  1234'}</p>
+            <p className='text-white mt-8 text-lg'>{dataCards?.cardNumber?.length?`${dataCards.cardNumber?.slice(0,4)}  ${dataCards.cardNumber?.slice(4,8)}  ${dataCards.cardNumber?.slice(8,12)}  ${dataCards.cardNumber?.slice(12,16)}`:'1234  1234  1234  1234'}</p>
           </div>
           <div className='flex mt-8 justify-around text-white'>
             <p className='uppercase'>{dataCards?.cardName?.length?`${dataCards.cardName}`:'First Name'}</p>
-          <p>{dataCards?.monthExp?.length && dataCards?.yearExp?.length?`${dataCards.monthExp}/${dataCards.yearExp}`:'MM/YY'}</p>
+          <p>{dataCards?.monthExp?.length && dataCards?.yearExp?.length?`${dataCards?.monthExp}/${dataCards?.yearExp}`:'MM/YY'}</p>
           </div>
         </div>
         <div className='p-4 ms-[18%] mt-[18%] fixed h-[11rem] w-[20rem] rounded bg-[url(../public/bg-card-back.png)] bg-cover shadow'>
@@ -38,19 +38,19 @@ function App() {
           <label>CARDHOLDER NAME</label>
           <input onChange={handleChange} className='border border-slate-300 p-2  rounded' type="text" name='cardName' placeholder='Jhon Doe'/>
           <label>CARD NUMBER</label>
-          <input onChange={handleChange} className='border border-slate-300 p-2  rounded' type="text" name='cardNumber' placeholder='1234 5678 9012 3456'/>
+          <input onChange={handleChange} className='border border-slate-300 p-2  rounded' type="text" name='cardNumber' placeholder='1234 5678 9012 3456' maxLength={16} minLength={16}/>
           <div className='flex'>
             <div className='flex gap-2'>
               <div className='flex flex-col'>
                 <label>EXP. DATE  MM/YY</label>
                 <div className='flex gap-2'>
-                  <input onChange={handleChange} className='w-16 border border-slate-300 p-2  rounded' type="text" name='monthExp' placeholder='MM'/>
-                  <input onChange={handleChange} className='w-16 border border-slate-300 p-2  rounded' type="text"  name='yearExp' placeholder='YY'/>
+                  <input onChange={handleChange} className='w-16 border border-slate-300 p-2  rounded' type="text" name='monthExp' placeholder='MM' maxLength={2} minLength={2}/>
+                  <input onChange={handleChange} className='w-16 border border-slate-300 p-2  rounded' type="text"  name='yearExp' placeholder='YY' maxLength={2} minLength={2}/>
                 </div> 
               </div>
               <div className='flex flex-col'>
                   <label>CVV</label>
-                  <input onChange={handleChange} className=' w-16 border border-slate-300 p-2  rounded' type="text" name='cvv' placeholder='123'/>
+                  <input onChange={handleChange} className=' w-16 border border-slate-300 p-2  rounded' type="text" name='cvv' placeholder='123' maxLength={3} minLength={3}/>
                 </div>
             </div>
           </div>
